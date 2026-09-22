@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منشور | حيدر الفحام</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root {
+  --bg: #fbfcfd;
+  --bg-grad-1: rgba(30,58,95,0.06);
+  --bg-grad-2: rgba(201,169,98,0.07);
+  --text: #1a2332;
+  --text-soft: #2a3547;
+  --text-muted: #6e7f98;
+  --text-faint: #98a5b8;
+  --surface: #ffffff;
+  --surface-2: #fbfcfd;
+  --surface-3: #f8fafc;
+  --border: rgba(30,58,95,0.08);
+  --border-soft: rgba(30,58,95,0.1);
+  --border-focus: rgba(201,169,98,0.55);
+  --accent: #0d1b2a;
+  --accent-2: #1e3a5f;
+  --gold: #c9a962;
+  --gold-light: #e8cc8a;
+  --gold-glow: rgba(201,169,98,0.5);
+  --gold-bg: rgba(201,169,98,0.1);
+  --gold-bg-h: rgba(201,169,98,0.15);
+  --gold-border: rgba(201,169,98,0.25);
+  --gold-border-h: rgba(201,169,98,0.45);
+  --shadow-sm: 0 2px 10px rgba(13,27,42,0.05);
+  --shadow-md: 0 6px 26px rgba(13,27,42,0.08);
+  --shadow-lg: 0 10px 44px rgba(13,27,42,0.08);
+  --shadow-card: 0 22px 52px rgba(13,27,42,0.18);
+  --shadow-btn: 0 4px 18px rgba(13,27,42,0.14);
+  --scroll-track: #f0f2f5;
+  --input-bg: #fbfcfd;
+  --over-grad: linear-gradient(to top, rgba(13,27,42,0.72) 0%, rgba(13,27,42,0.28) 38%, rgba(13,27,42,0.06) 68%, transparent 100%);
+  --header-bg: #e8eef5;
+  --theme-icon: "\f185";
+  --theme-icon-color: #ffffff;
+}
+[data-theme="dark"] {
+  --bg: #171717;
+  --bg-grad-1: rgba(217,154,58,0.12);
+  --bg-grad-2: rgba(255,255,255,0.03);
+  --text: #f5f1e8;
+  --text-soft: #ded8cd;
+  --text-muted: #aaa39a;
+  --text-faint: #807a72;
+  --surface: #242424;
+  --surface-2: #1f1f1f;
+  --surface-3: #2c2c2c;
+  --border: rgba(255,255,255,0.1);
+  --border-soft: rgba(255,255,255,0.14);
+  --border-focus: rgba(217,154,58,0.65);
+  --accent: #f5f1e8;
+  --accent-2: #d8c7a5;
+  --gold: #d99a3a;
+  --gold-light: #efbd69;
+  --gold-glow: rgba(217,154,58,0.45);
+  --gold-bg: rgba(217,154,58,0.12);
+  --gold-bg-h: rgba(217,154,58,0.18);
+  --gold-border: rgba(217,154,58,0.3);
+  --gold-border-h: rgba(217,154,58,0.6);
+  --shadow-sm: 0 2px 12px rgba(0,0,0,0.3);
+  --shadow-md: 0 6px 28px rgba(0,0,0,0.45);
+  --shadow-lg: 0 10px 48px rgba(0,0,0,0.5);
+  --shadow-card: 0 22px 56px rgba(0,0,0,0.65);
+  --shadow-btn: 0 4px 18px rgba(0,0,0,0.35);
+  --scroll-track: #101010;
+  --input-bg: #202020;
+  --over-grad: linear-gradient(to top, rgba(23,23,23,0.78) 0%, rgba(36,36,36,0.38) 38%, rgba(23,23,23,0.1) 68%, transparent 100%);
+  --header-bg: #242424;
+  --theme-icon: "\f186";
+  --theme-icon-color: #ffffff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Tajawal',sans-serif; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height:100vh;
+  background-image:
+    radial-gradient(circle at 15% 0%, var(--bg-grad-1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 100%, var(--bg-grad-2) 0%, transparent 45%);
+  background-attachment:fixed;
+  transition: background 0.4s ease, color 0.3s ease;
+}
+::-webkit-scrollbar { width:10px; }
+::-webkit-scrollbar-track { background: var(--scroll-track); transition: background 0.3s; }
+::-webkit-scrollbar-thumb { background:linear-gradient(180deg,#1e3a5f,#0d1b2a); border-radius:10px; }
+::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#2a4a7a,#1a2d47); }
+
+.site-logo {
+  position:absolute; top:24px; right:24px; z-index:20;
+  width:46px; height:46px; border-radius:14px; overflow:hidden;
+  background: var(--surface);
+  border:1px solid var(--border-soft);
+  box-shadow: var(--shadow-sm);
+  transition:0.35s;
+}
+.site-logo a { display:block; width:100%; height:100%; }
+.site-logo img { width:100%; height:100%; object-fit:cover; display:block; }
+.site-logo:hover {
+  transform:scale(1.08) rotate(-3deg);
+  border-color: var(--gold-border-h);
+  box-shadow: 0 8px 28px var(--gold-bg);
+}
+
+.theme-toggle {
+  position:absolute; top:24px; left:24px; z-index:20;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  background: transparent;
+  border:none;
+  color: var(--theme-icon-color);
+  font-size:22px;
+  box-shadow: none;
+  transition: all 0.35s ease;
+  padding:0;
+}
+.theme-toggle:hover {
+  transform: rotate(25deg) scale(1.15);
+  color: var(--gold);
+}
+.theme-toggle::before {
+  content:var(--theme-icon);
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+}
+
+.back-float {
+  position:absolute; top:86px; left:24px; z-index:19;
+  display:flex; align-items:center; gap:8px;
+  padding:10px 18px;
+  background: var(--surface);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border-soft);
+  color: var(--text); border-radius:50px; cursor:pointer;
+  font-size:14px; font-weight:700; text-decoration:none;
+  box-shadow: var(--shadow-sm);
+  transition:0.3s;
+}
+.back-float:hover {
+  transform:translateX(3px);
+  border-color: var(--gold-border-h);
+  box-shadow: 0 10px 32px var(--gold-bg);
+  color: var(--accent);
+}
+
+.header {
+  width:100%; height:320px; position:relative; overflow:hidden;
+}
+.header-bg {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  transform:scale(1.05); transition:transform 0.8s;
+  background-color: var(--header-bg);
+}
+.header:hover .header-bg { transform:scale(1.1); }
+.header::after {
+  content:''; position:absolute; inset:0;
+  background: var(--over-grad);
+  z-index:1;
+}
+.header-content {
+  position:absolute; inset:0; z-index:2;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:0 28px 42px; max-width:950px; margin:0 auto; width:100%;
+}
+.header h1 {
+  color:#ffffff; font-size:24px; font-weight:800;
+  text-shadow:0 4px 24px rgba(0,0,0,0.55); line-height:1.3;
+}
+.header-title-bar {
+  width:70px; height:4px; margin-top:16px; border-radius:4px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  box-shadow:0 0 18px var(--gold-glow);
+}
+
+.sites-section {
+  display:block; border-bottom:1px solid #d9dde3;
+  background:#ffffff;
+}
+.sites-inner {
+  max-width:950px; margin:0 auto; padding:8px 24px;
+  display:flex; align-items:center;
+}
+.sites-list {
+  display:flex; align-items:center; gap:10px; min-width:0;
+  overflow-x:auto; scrollbar-width:none;
+}
+.sites-list::-webkit-scrollbar { display:none; }
+.site-link {
+  flex:0 0 auto; color:#0d1b2a; text-decoration:none;
+  font-size:13px; font-weight:800; letter-spacing:0.15px; padding:2px 10px;
+  transition:0.25s;
+}
+.site-link:hover {
+  color:#d99a3a; opacity:1;
+}
+.ticker-section {
+  display:none; overflow:hidden; background:#d99a3a; color:#0d1b2a;
+  border-bottom:1px solid #b87822;
+}
+.ticker-section.show { display:block; }
+.ticker-track {
+  display:flex; width:max-content; min-width:100%;
+  animation:ticker-scroll 240s linear infinite;
+}
+.ticker-section:hover .ticker-track,
+.ticker-section:focus-within .ticker-track { animation-play-state:paused; }
+.ticker-group { display:flex; align-items:center; flex:0 0 auto; }
+.ticker-item {
+  display:inline-flex; align-items:center; gap:22px;
+  padding:7px 22px; color:#0d1b2a; text-decoration:none;
+  font-size:13px; font-weight:800; letter-spacing:0.15px; white-space:nowrap;
+}
+.ticker-item::after { content:'•'; color:#fff8df; font-size:18px; }
+.ticker-item:hover { color:#ffffff; }
+@keyframes ticker-scroll {
+  from { transform:translateX(0); }
+  to { transform:translateX(50%); }
+}
+
+.container { max-width:950px; margin:0 auto; padding:40px 24px 72px; }
+.post-wrapper {
+  background: var(--surface);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:40px 44px;
+  box-shadow: var(--shadow-lg), 0 1px 0 rgba(255,255,255,0.9) inset;
+}
+.post-title {
+  font-size:32px; color: var(--accent); font-weight:800;
+  margin-bottom:26px; line-height:1.5;
+  position:relative; padding-bottom:20px;
+}
+.post-title::after {
+  content:''; position:absolute; bottom:0; right:0;
+  width:80px; height:4px; border-radius:4px;
+  background:linear-gradient(90deg,transparent,var(--gold));
+}
+.post-image {
+  width:100%; border-radius:16px; margin-bottom:32px; display:block;
+  border:1px solid var(--border);
+  box-shadow:0 8px 30px rgba(13,27,42,0.12);
+}
+.post-content {
+  font-size:17px; line-height:2.1; color: var(--text-soft);
+}
+.post-content p { margin-bottom:20px; }
+.post-content img {
+  max-width:100%; border-radius:14px; margin:22px 0;
+  border:1px solid var(--border);
+  box-shadow:0 6px 22px rgba(13,27,42,0.1);
+}
+.post-content a {
+  color: var(--accent-2); text-decoration:none;
+  border-bottom:1px dashed rgba(30,58,95,0.3);
+  transition:0.2s; font-weight:700;
+}
+.post-content a:hover {
+  color: var(--gold); border-bottom-color: var(--gold-border-h);
+}
+.post-content iframe {
+  width:100%; border-radius:14px; margin:22px 0;
+  border:1px solid var(--border);
+  box-shadow:0 6px 22px rgba(13,27,42,0.1);
+}
+.post-content b, .post-content strong {
+  color: var(--accent); font-weight:800;
+}
+.post-content h1, .post-content h2, .post-content h3 {
+  color: var(--accent); margin:28px 0 14px; line-height:1.45; font-weight:800;
+}
+.post-content h1 { font-size:26px; }
+.post-content h2 { font-size:22px; }
+.post-content h3 { font-size:19px; }
+.post-content ul, .post-content ol {
+  padding-inline-start:32px; margin-bottom:18px;
+}
+.post-content li { margin-bottom:10px; }
+.post-content blockquote {
+  border-right:5px solid var(--gold);
+  padding:14px 22px;
+  background: var(--gold-bg);
+  border-radius:8px 14px 14px 8px;
+  margin:22px 0;
+  color: var(--text-soft); font-style:italic; font-weight:600;
+  box-shadow:0 2px 8px var(--gold-bg);
+}
+.post-content code, .post-content pre {
+  background: #202020;
+  padding:3px 10px; border-radius:8px;
+  font-family:monospace; font-size:0.92em;
+  color: #f5f1e8; border:1px solid var(--border);
+}
+.post-content pre {
+  display:block; padding:20px; overflow-x:auto;
+  margin:18px 0; line-height:1.7; direction:ltr;
+  text-align:left; white-space:pre; tab-size:2;
+}
+.post-content pre.ql-syntax {
+  background:#202020; color:#f5f1e8;
+  border:1px solid rgba(217,154,58,0.35);
+  box-shadow:0 8px 24px rgba(0,0,0,0.16);
+}
+[data-theme="light"] .post-content pre.ql-syntax {
+  background:#1f2933; color:#f5f1e8;
+}
+
+.shorts-feed {
+  height:min(720px, calc(100vh - 180px)); min-height:430px;
+  overflow-y:auto; scroll-snap-type:y mandatory; overscroll-behavior:contain;
+  scrollbar-width:thin; scrollbar-color:var(--gold) transparent;
+  width:calc(100% + 88px); margin:0 -44px 28px;
+  border-radius:16px;
+}
+.video-block {
+  height:100%; min-height:430px; scroll-snap-align:start;
+  scroll-snap-stop:always; border-radius:16px; overflow:hidden;
+  border:1px solid var(--border); background:#000;
+  box-shadow:0 8px 30px rgba(13,27,42,0.12);
+}
+.video-block iframe {
+  width:100%; height:100%; border-radius:0; border:0; display:block;
+}
+.regular-video-block {
+  width:calc(100% + 88px); margin:0 -44px 28px;
+  border-radius:16px; overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:0 8px 30px rgba(13,27,42,0.12);
+}
+.regular-video-block iframe {
+  width:100%; height:470px; border:0; display:block;
+}
+
+.empty {
+  text-align:center; padding:90px 20px;
+  color: var(--text-muted); font-size:15px; font-weight:600;
+}
+.loading {
+  text-align:center; padding:90px;
+  color: var(--text-muted);
+}
+.loader {
+  display:inline-block; width:46px; height:46px;
+  border:3px solid var(--border-soft);
+  border-top-color: var(--gold);
+  border-radius:50%;
+  animation:spin 0.9s linear infinite;
+  margin-bottom:16px;
+  box-shadow:0 0 24px var(--gold-bg);
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-text { font-size:14px; color: var(--text-muted); letter-spacing:0.5px; font-weight:600; }
+
+.scroll-top {
+  position:fixed; bottom:30px; left:30px;
+  width:46px; height:46px; border-radius:14px;
+  background: var(--surface);
+  color: var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  border:1px solid var(--border-soft);
+  box-shadow: var(--shadow-sm);
+  opacity:0; transform:translateY(16px); transition:0.35s;
+  z-index:40; font-size:18px; font-weight:800;
+}
+.scroll-top.show { opacity:1; transform:translateY(0); }
+.scroll-top:hover {
+  background:linear-gradient(135deg,#0d1b2a,#1e3a5f);
+  color: var(--gold);
+  border-color: var(--gold-border);
+  transform:translateY(-3px);
+  box-shadow: 0 12px 36px var(--gold-bg);
+}
+
+.footer {
+  border-top:1px solid var(--border);
+  padding:34px 24px; text-align:center;
+  background: var(--surface);
+}
+.footer-inner { max-width:950px; margin:0 auto; }
+.footer-brand {
+  font-size:16px; font-weight:800; color: var(--accent); margin-bottom:8px;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.footer-brand::before {
+  content:''; width:8px; height:8px; border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#a07e3f);
+  box-shadow:0 0 12px var(--gold-glow);
+}
+.footer-copy { font-size:13px; color: var(--text-muted); font-weight:600; }
+.footer-copy span { color: var(--gold); font-weight:800; }
+.social-links {
+  display:flex; justify-content:center; align-items:center; gap:18px;
+  margin-bottom:18px;
+}
+.social-link {
+  color:var(--text-soft); font-size:19px; text-decoration:none;
+  transition:0.25s;
+}
+.social-link:hover { color:var(--gold); transform:translateY(-2px); }
+
+@media (max-width:600px) {
+  .site-logo { top:24px; right:24px; width:42px; height:42px; }
+  .theme-toggle { top:24px; left:24px; width:42px; height:42px; font-size:20px; }
+  .back-float { top:86px; left:24px; padding:8px 14px; font-size:13px; }
+  .header { height:250px; }
+  .header h1 { font-size:18px; }
+  .header-content { padding:0 20px 30px; }
+  .header-title-bar { width:55px; height:3px; margin-top:12px; }
+  .sites-inner { padding:6px 16px; }
+  .site-link { font-size:12px; padding:1px 8px; }
+  .ticker-item { padding:6px 16px; font-size:12px; }
+  .container { padding:28px 16px 56px; }
+  .post-wrapper { padding:22px 18px; border-radius:18px; }
+  .post-title { font-size:22px; margin-bottom:18px; padding-bottom:14px; }
+  .post-image { margin-bottom:22px; border-radius:12px; }
+  .post-content { font-size:15px; line-height:2; }
+  .shorts-feed { width:calc(100% + 36px); height:calc(100vh - 210px); min-height:360px; margin-inline:-18px; }
+  .video-block { min-height:360px; }
+  .regular-video-block { width:calc(100% + 36px); margin-inline:-18px; }
+  .regular-video-block iframe { height:230px; }
+  .scroll-top { width:42px; height:42px; bottom:24px; left:24px; font-size:16px; border-radius:12px; }
+}
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#fbfcfd" id="theme-color">
+<link rel="apple-touch-icon" href="https://e.top4top.io/p_3916uvvbp1.jpg">
+</head>
+<body>
+
+<div class="header" id="main-header">
+  <div class="header-bg" id="header-bg"></div>
+
+  <div class="site-logo" title="حيدر الفحام">
+    <a href="index.html"><img src="https://e.top4top.io/p_3916uvvbp1.jpg" alt="حيدر الفحام"></a>
+  </div>
+
+  <button class="theme-toggle" id="theme-toggle" aria-label="تبديل الوضع"></button>
+
+  <div class="header-content">
+    <h1 id="header-title"></h1>
+    <div class="header-title-bar"></div>
+  </div>
+</div>
+
+<section class="sites-section" aria-label="روابط الموقع">
+  <div class="sites-inner">
+    <nav class="sites-list" id="sites-list"></nav>
+  </div>
+</section>
+
+<section class="ticker-section" id="ticker-section" aria-label="آخر المنشورات">
+  <div class="ticker-track" id="ticker-track"></div>
+</section>
+
+<div class="container" id="content">
+  <div class="loading">
+    <div class="loader"></div>
+    <div class="loading-text">جاري التحميل...</div>
+  </div>
+</div>
+
+<div class="scroll-top" id="scroll-top" title="الرجوع للأعلى">↑</div>
+
+<div class="footer">
+  <div class="footer-inner">
+    <div class="social-links" id="social-links" aria-label="التواصل الاجتماعي"></div>
+    <div class="footer-copy">© جميع الحقوق محفوظة <span id="year"></span></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const saved = localStorage.getItem('hf-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = saved || (prefersDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAPVjvNkvWP2LRZbeVZ6DADeNRfW1BMaMw",
+  authDomain: "haider-alfaham.firebaseapp.com",
+  databaseURL: "https://haider-alfaham-default-rtdb.firebaseio.com",
+  projectId: "haider-alfaham",
+  storageBucket: "haider-alfaham.firebasestorage.app",
+  messagingSenderId: "164261276323",
+  appId: "1:164261276323:web:4467993ab9f4e3ba602d16"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const params = new URLSearchParams(location.search);
+const postId = params.get('id');
+
+const headerBg = document.getElementById('header-bg');
+const headerTitle = document.getElementById('header-title');
+const content = document.getElementById('content');
+let sitesCache = {};
+let socialsCache = {};
+const DEFAULT_MAIN_HEADER_IMG = 'https://c.top4top.io/p_3916wtc7t0.png';
+let mainHeaderImg = DEFAULT_MAIN_HEADER_IMG;
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const toggleBtn = document.getElementById('theme-toggle');
+const themeMeta = document.getElementById('theme-color');
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('hf-theme', t);
+  themeMeta.setAttribute('content', t === 'dark' ? '#050a14' : '#fbfcfd');
+  toggleBtn.title = t === 'dark' ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع الداكن';
+  toggleBtn.setAttribute('aria-label', toggleBtn.title);
+}
+applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+toggleBtn.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+});
+
+const scrollTopBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 400) scrollTopBtn.classList.add('show');
+  else scrollTopBtn.classList.remove('show');
+});
+scrollTopBtn.onclick = () => window.scrollTo({ top:0, behavior:'smooth' });
+
+onValue(ref(db, 'sites'), snap => {
+  sitesCache = snap.val() || {};
+  renderSites();
+});
+onValue(ref(db, 'socialLinks'), snap => {
+  socialsCache = snap.val() || {};
+  renderSocials();
+});
+onValue(ref(db, 'siteSettings'), snap => {
+  mainHeaderImg = safeUrl(snap.val()?.header) || DEFAULT_MAIN_HEADER_IMG;
+});
+onValue(ref(db, 'posts'), snap => renderTicker(snap.val() || {}));
+
+function renderSites() {
+  const list = document.getElementById('sites-list');
+  const sites = Object.values(sitesCache).filter(site => site && site.name && siteUrl(site.url));
+  list.innerHTML = `
+    <a class="site-link" href="index.html">الرئيسية</a>
+  ` + sites.map(site => `
+    <a class="site-link" href="${escapeHtml(siteUrl(site.url))}">
+      ${escapeHtml(site.name)}
+    </a>
+  `).join('');
+}
+
+function renderSocials() {
+  const list = document.getElementById('social-links');
+  const icons = {
+    facebook: ['fa-brands fa-facebook-f', 'فيسبوك'],
+    instagram: ['fa-brands fa-instagram', 'إنستغرام'],
+    youtube: ['fa-brands fa-youtube', 'يوتيوب'],
+    tiktok: ['fa-brands fa-tiktok', 'تيك توك'],
+    telegram: ['fa-brands fa-telegram', 'تلغرام'],
+    whatsapp: ['fa-brands fa-whatsapp', 'واتساب'],
+    x: ['fa-brands fa-x-twitter', 'إكس'],
+    linkedin: ['fa-brands fa-linkedin-in', 'لينكدإن'],
+    link: ['fa-solid fa-link', 'رابط']
+  };
+  list.innerHTML = Object.values(socialsCache).filter(item => item && icons[item.icon || item.platform] && socialUrl(item.url)).map(item => {
+    const icon = icons[item.icon || item.platform];
+    const label = item.name || icon[1];
+    return `
+    <a class="social-link" href="${escapeHtml(socialUrl(item.url))}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" onclick="window.open(this.href, '_blank', 'noopener,noreferrer'); return false;" aria-label="${escapeHtml(label)}" title="${escapeHtml(label)}">
+      <i class="${icon[0]}" aria-hidden="true"></i>
+    </a>
+  `;
+  }).join('');
+}
+
+function renderTicker(postsCache) {
+  const section = document.getElementById('ticker-section');
+  const track = document.getElementById('ticker-track');
+  const posts = Object.entries(postsCache)
+    .filter(([, post]) => post && post.title)
+    .sort(([firstId, first], [secondId, second]) => postTimestamp(secondId, second) - postTimestamp(firstId, first));
+
+  section.classList.toggle('show', posts.length > 0);
+  if (!posts.length) {
+    track.innerHTML = '';
+    return;
+  }
+
+  const items = posts.map(([id, post]) => `
+    <a class="ticker-item" href="post.html?id=${encodeURIComponent(id)}">${escapeHtml(post.title)}</a>
+  `).join('');
+  track.innerHTML = `<div class="ticker-group">${items}</div><div class="ticker-group" aria-hidden="true">${items}</div>`;
+}
+
+function postTimestamp(id, post) {
+  if (Number(post.createdAt)) return Number(post.createdAt);
+  const chars = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+  let timestamp = 0;
+  for (const char of String(id).slice(0, 8)) timestamp = timestamp * 64 + chars.indexOf(char);
+  return timestamp;
+}
+
+if (!postId) {
+  content.innerHTML = '<div class="empty">المنشور غير موجود</div>';
+} else {
+  loadPost();
+}
+
+async function loadPost() {
+  try {
+    const settingsSnap = await get(ref(db, 'siteSettings'));
+    mainHeaderImg = safeUrl(settingsSnap.val()?.header) || DEFAULT_MAIN_HEADER_IMG;
+
+    const postSnap = await get(ref(db, 'posts/' + postId));
+    const post = postSnap.val();
+
+    if (!post) {
+      content.innerHTML = '<div class="empty">المنشور غير موجود</div>';
+      return;
+    }
+
+    if (post.sectionId) {
+      const secSnap = await get(ref(db, 'sections/' + post.sectionId));
+      const sec = secSnap.val();
+      if (sec) {
+        const sectionHeader = safeUrl(sec.header) || safeUrl(sec.image);
+        headerBg.style.backgroundImage = `url('${sectionHeader || mainHeaderImg}')`;
+        headerTitle.textContent = sec.name;
+      }
+    }
+
+    document.title = (post.title || 'منشور') + ' | حيدر الفحام';
+
+    let html = `<div class="post-wrapper">`;
+    html += `<h1 class="post-title">${escapeHtml(post.title)}</h1>`;
+
+    if (safeUrl(post.image)) {
+      html += `<img class="post-image" src="${escapeHtml(safeUrl(post.image))}" alt="${escapeHtml(post.title)}">`;
+    }
+
+    if (post.videos && post.videos.length) {
+      post.videos.forEach(v => {
+        const ytId = extractYT(v);
+        if (ytId) {
+          html += `<div class="regular-video-block"><iframe src="https://www.youtube.com/embed/${ytId}?enablejsapi=1&rel=0" title="فيديو يوتيوب" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>`;
+        }
+      });
+    }
+
+    if (post.shortVideos && post.shortVideos.length) {
+      html += `<div class="shorts-feed" aria-label="فيديوهات قصيرة">`;
+      post.shortVideos.forEach(v => {
+        const ytId = extractYT(v);
+        if (ytId) {
+          html += `<div class="video-block"><iframe src="https://www.youtube.com/embed/${ytId}?enablejsapi=1&rel=0" title="فيديو قصير" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>`;
+        }
+      });
+      html += `</div>`;
+    }
+
+    if (post.content) {
+      html += `<div class="post-content">${sanitizeHtml(post.content)}</div>`;
+    }
+    html += `</div>`;
+
+    content.innerHTML = html;
+    bindVideoPlayback();
+
+  } catch (e) {
+    content.innerHTML = '<div class="empty">حدث خطأ في تحميل المنشور</div>';
+    console.error(e);
+  }
+}
+
+function pauseVideo(iframe) {
+  iframe.contentWindow?.postMessage(JSON.stringify({
+    event: 'command', func: 'pauseVideo', args: []
+  }), '*');
+}
+
+function pauseOtherVideos(currentIframe) {
+  document.querySelectorAll('.post-wrapper iframe').forEach(iframe => {
+    if (iframe !== currentIframe) pauseVideo(iframe);
+  });
+}
+
+function bindVideoPlayback() {
+  const frames = [...document.querySelectorAll('.post-wrapper iframe')];
+  frames.forEach((iframe, index) => {
+    iframe.dataset.playerId = String(index + 1);
+    iframe.addEventListener('pointerdown', () => pauseOtherVideos(iframe));
+    iframe.addEventListener('load', () => listenForPlayerState(iframe));
+    listenForPlayerState(iframe);
+  });
+
+  window.addEventListener('message', handlePlayerState);
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+        pauseOtherVideos(entry.target);
+      } else if (!entry.isIntersecting) {
+        pauseVideo(entry.target);
+      }
+    });
+  }, { threshold: [0, 0.6] });
+  frames.forEach(iframe => observer.observe(iframe));
+}
+
+function listenForPlayerState(iframe) {
+  if (!iframe.contentWindow) return;
+  iframe.contentWindow.postMessage(JSON.stringify({
+    event: 'listening', id: iframe.dataset.playerId, channel: 'post-videos'
+  }), '*');
+  iframe.contentWindow.postMessage(JSON.stringify({
+    event: 'command', func: 'addEventListener', args: ['onStateChange']
+  }), '*');
+}
+
+function handlePlayerState(event) {
+  if (!event.origin.includes('youtube.com') && !event.origin.includes('youtube-nocookie.com')) return;
+  let message;
+  try { message = typeof event.data === 'string' ? JSON.parse(event.data) : event.data; } catch { return; }
+  if (message?.event !== 'onStateChange' || Number(message.info) !== 1) return;
+  const activeIframe = [...document.querySelectorAll('.post-wrapper iframe')]
+    .find(iframe => iframe.contentWindow === event.source);
+  if (activeIframe) pauseOtherVideos(activeIframe);
+}
+
+function sanitizeHtml(value) {
+  const doc = new DOMParser().parseFromString(String(value || ''), 'text/html');
+  doc.querySelectorAll('script, object, embed, form').forEach(el => el.remove());
+  doc.querySelectorAll('*').forEach(el => {
+    [...el.attributes].forEach(attr => {
+      const name = attr.name.toLowerCase();
+      const val = attr.value.trim().toLowerCase();
+      if (name.startsWith('on') || ((name === 'href' || name === 'src' || name === 'action') && val.startsWith('javascript:'))) {
+        el.removeAttribute(attr.name);
+      }
+    });
+  });
+  return doc.body.innerHTML;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
+function safeUrl(value) {
+  try {
+    const url = new URL(String(value || ''), location.href);
+    return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
+function siteUrl(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  if (/^(mailto:|tel:)/i.test(raw)) return raw;
+  if (/^\/[/]?/.test(raw) || raw.startsWith('#')) return raw;
+  return safeUrl(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`);
+}
+
+function socialUrl(value) {
+  const raw = String(value || '').trim();
+  return safeUrl(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`);
+}
+
+function extractYT(url) {
+  if (!url) return null;
+  url = url.trim();
+  const patterns = [
+    /(?:youtu\.be\/)([\w-]{11})/,
+    /(?:youtube\.com\/watch\?[^ ]*v=)([\w-]{11})/,
+    /(?:youtube\.com\/embed\/)([\w-]{11})/,
+    /(?:youtube\.com\/shorts\/)([\w-]{11})/,
+    /(?:youtube\.com\/live\/)([\w-]{11})/,
+    /(?:youtube\.com\/v\/)([\w-]{11})/,
+    /(?:youtube\.com\/.*[?&]v=)([\w-]{11})/
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  if (/^[\w-]{11}$/.test(url)) return url;
+  return null;
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

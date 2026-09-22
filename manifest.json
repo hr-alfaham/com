@@ -1,0 +1,26 @@
+{
+  "name": "حيدر الفحام",
+  "short_name": "حيدر الفحام",
+  "description": "الموقع الشخصي لحيدر الفحام",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbfcfd",
+  "theme_color": "#fbfcfd",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "./haider%20alfaham.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "./haider%20alfaham.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
