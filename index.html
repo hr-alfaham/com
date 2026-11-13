@@ -4,8 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>حيدر الفحام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://haideralfaham-default-rtdb.firebaseio.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 <style>
 :root {
   --bg: #fbfcfd;
@@ -503,12 +509,25 @@ window.addEventListener('scroll', () => {
 });
 scrollTopBtn.onclick = () => window.scrollTo({ top:0, behavior:'smooth' });
 
+// عرض آخر نسخة محفوظة فوراً ثم التحديث من الإنترنت
+function cacheGet(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+function cacheSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+(function restoreCache() {
+  const cs = cacheGet('hf-cache-sections');
+  const cp = cacheGet('hf-cache-posts');
+  if (cs) sectionsCache = cs;
+  if (cp) postsCache = cp;
+  if (cs || cp) { renderTicker(); render(); }
+})();
+
 onValue(ref(db, 'sections'), snap => {
   sectionsCache = snap.val() || {};
+  cacheSet('hf-cache-sections', sectionsCache);
   render();
 });
 onValue(ref(db, 'posts'), snap => {
   postsCache = snap.val() || {};
+  cacheSet('hf-cache-posts', postsCache);
   renderTicker();
   render();
 });
@@ -654,7 +673,7 @@ function cardSection(id, s) {
   return `
     <div class="card" data-link="${escapeHtml(s.link && safeUrl(s.link) || `?section=${encodeURIComponent(id)}`)}">
       <div class="card-img-wrap">
-        <img class="card-img" src="${escapeHtml(img)}" loading="lazy" alt="${escapeHtml(s.name)}">
+        <img class="card-img" src="${escapeHtml(img)}" loading="lazy" decoding="async" alt="${escapeHtml(s.name)}">
         <div class="card-overlay">
           <div class="card-name">${escapeHtml(s.name)}</div>
           <div class="card-divider"></div>
@@ -696,7 +715,7 @@ function cardPost(id, p) {
   return `
     <div class="card" data-link="post.html?id=${encodeURIComponent(id)}">
       <div class="card-img-wrap">
-        <img class="card-img" src="${escapeHtml(img)}" loading="lazy" alt="${escapeHtml(p.title)}">
+        <img class="card-img" src="${escapeHtml(img)}" loading="lazy" decoding="async" alt="${escapeHtml(p.title)}">
         <div class="card-overlay">
           <div class="card-name">${escapeHtml(p.title)}</div>
           <div class="card-divider"></div>
