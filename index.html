@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://haideralfaham-default-rtdb.firebaseio.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
@@ -248,6 +249,36 @@ body {
 }
 
 .container { max-width:1150px; margin:0 auto; padding:42px 24px 72px; }
+
+.shorts-section { display:none; max-width:1150px; margin:0 auto; padding:26px 24px 0; }
+.shorts-section.show { display:block; }
+.shorts-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; font-size:17px; font-weight:800; color:var(--text); }
+.shorts-head::before { content:''; width:4px; height:20px; border-radius:4px; background:var(--gold); }
+.shorts-row { display:flex; gap:12px; overflow-x:auto; padding:4px 2px 14px; -webkit-overflow-scrolling:touch; scrollbar-width:thin; }
+.short-card { flex:0 0 auto; width:150px; aspect-ratio:9/16; border-radius:16px; overflow:hidden; position:relative; cursor:pointer; background:var(--surface-3); border:1px solid var(--border); box-shadow:var(--shadow-sm); padding:0; display:block; font-family:inherit; transition:transform .2s, box-shadow .2s; }
+.short-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+.short-card img { width:100%; height:100%; object-fit:cover; display:block; }
+.short-card .sc-play { position:absolute; top:10px; left:10px; width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,.55); color:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; }
+.short-card .sc-title { position:absolute; inset:auto 0 0 0; padding:28px 10px 10px; color:#fff; font-size:12.5px; font-weight:700; line-height:1.5; text-align:right; background:linear-gradient(to top, rgba(0,0,0,.8), transparent); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.sv { position:fixed; inset:0; z-index:100000; background:#000; display:none; }
+.sv.open { display:block; }
+body.sv-lock { overflow:hidden; }
+.sv-scroll { height:100%; overflow-y:scroll; scroll-snap-type:y mandatory; overscroll-behavior:contain; scrollbar-width:none; }
+.sv-scroll::-webkit-scrollbar { display:none; }
+.sv-slide { height:100vh; height:100dvh; scroll-snap-align:start; scroll-snap-stop:always; display:flex; align-items:center; justify-content:center; }
+.sv-frame { position:relative; height:100%; width:min(100vw, calc(100vh * 9 / 16)); width:min(100vw, calc(100dvh * 9 / 16)); background:#111; overflow:hidden; }
+.sv-poster { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.sv-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; background:#000; }
+.sv-play { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:72px; height:72px; border-radius:50%; border:0; background:rgba(0,0,0,.6); color:#fff; font-size:26px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; }
+.sv-frame.playing .sv-play { display:none; }
+.sv-title { position:absolute; top:0; left:0; right:0; padding:16px 64px 28px 16px; color:#fff; font-size:14px; font-weight:700; line-height:1.6; background:linear-gradient(to bottom, rgba(0,0,0,.65), transparent); pointer-events:none; text-align:right; }
+.sv-close { position:fixed; top:12px; right:12px; z-index:3; width:42px; height:42px; border-radius:50%; border:0; background:rgba(0,0,0,.6); color:#fff; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; }
+.sv-nav { position:fixed; left:18px; top:50%; z-index:3; display:none; flex-direction:column; gap:10px; transform:translateY(-50%); }
+.sv-nav button { width:44px; height:44px; border-radius:50%; border:0; background:rgba(255,255,255,.18); color:#fff; font-size:18px; cursor:pointer; padding:0; }
+.sv-nav button:hover { background:rgba(255,255,255,.3); }
+@media (hover:hover) and (min-width:700px) { .sv-nav { display:flex; } }
+@media (max-width:700px) { .shorts-section { padding:20px 16px 0; } .short-card { width:128px; border-radius:14px; } }
+
 .section-label {
   display:inline-flex; align-items:center; gap:10px;
   font-size:14px; font-weight:800; color: var(--accent);
@@ -427,11 +458,22 @@ body {
   <div class="ticker-track" id="ticker-track"></div>
 </section>
 
+<section class="shorts-section" id="shorts-section" aria-label="فيديوهات قصيرة">
+  <div class="shorts-head">فيديوهات قصيرة</div>
+  <div class="shorts-row" id="shorts-row"></div>
+</section>
+
 <div class="container" id="content">
   <div class="loading">
     <div class="loader"></div>
     <div class="loading-text">جاري التحميل...</div>
   </div>
+</div>
+
+<div class="sv" id="sv" role="dialog" aria-modal="true" aria-label="الفيديوهات القصيرة">
+  <button class="sv-close" id="sv-close" type="button" aria-label="إغلاق">✕</button>
+  <div class="sv-nav"><button id="sv-up" type="button" aria-label="السابق">▲</button><button id="sv-down" type="button" aria-label="التالي">▼</button></div>
+  <div class="sv-scroll" id="sv-scroll"></div>
 </div>
 
 <div class="scroll-top" id="scroll-top" title="الرجوع للأعلى">↑</div>
@@ -509,14 +551,139 @@ window.addEventListener('scroll', () => {
 });
 scrollTopBtn.onclick = () => window.scrollTo({ top:0, behavior:'smooth' });
 
+// ===== الفيديوهات القصيرة =====
+let shortsCache = {};
+const shortsSection = document.getElementById('shorts-section');
+const shortsRow = document.getElementById('shorts-row');
+const sv = document.getElementById('sv');
+const svScroll = document.getElementById('sv-scroll');
+let shortsList = [];
+let svOpen = false;
+let svActive = -1;
+let svObserver = null;
+let svTimer = null;
+
+function getShortsList() {
+  return Object.entries(shortsCache || {})
+    .filter(([, v]) => v && extractYT(v.url))
+    .sort(([, a], [, b]) => (Number(a.order ?? 0) - Number(b.order ?? 0)) || (Number(b.createdAt || 0) - Number(a.createdAt || 0)))
+    .map(([id, v]) => ({ id, ytId: extractYT(v.url), title: v.title || '' }));
+}
+
+function renderShorts() {
+  const list = getShortsList();
+  const show = list.length > 0 && !currentSectionId;
+  shortsSection.classList.toggle('show', show);
+  if (!show) { shortsRow.innerHTML = ''; return; }
+  shortsList = list;
+  shortsRow.innerHTML = list.map((v, i) => `
+    <button type="button" class="short-card" data-i="${i}" aria-label="${escapeHtml(v.title || 'فيديو قصير')}">
+      <img src="https://i.ytimg.com/vi/${v.ytId}/hqdefault.jpg" loading="lazy" decoding="async" alt="">
+      <span class="sc-play">▶</span>
+      ${v.title ? `<span class="sc-title">${escapeHtml(v.title)}</span>` : ''}
+    </button>`).join('');
+}
+
+shortsRow.addEventListener('click', e => {
+  const card = e.target.closest('.short-card');
+  if (card) svOpenAt(Number(card.dataset.i));
+});
+
+// إيقاف أي فيديو يعمل وحذف المشغّل بالكامل
+function svStop() {
+  svScroll.querySelectorAll('iframe').forEach(f => { f.src = 'about:blank'; f.remove(); });
+  svScroll.querySelectorAll('.sv-frame.playing').forEach(f => f.classList.remove('playing'));
+  svActive = -1;
+}
+
+function svPlay(i) {
+  svStop();
+  const v = shortsList[i];
+  const frame = document.getElementById('svf-' + i);
+  if (!v || !frame || !svOpen) return;
+  const f = document.createElement('iframe');
+  f.src = `https://www.youtube.com/embed/${v.ytId}?autoplay=1&playsinline=1&rel=0&loop=1&playlist=${v.ytId}`;
+  f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+  f.setAttribute('allowfullscreen', '');
+  f.title = v.title || 'فيديو قصير';
+  frame.appendChild(f);
+  frame.classList.add('playing');
+  svActive = i;
+}
+
+function svOpenAt(i) {
+  if (!shortsList.length) return;
+  svScroll.innerHTML = shortsList.map((v, k) => `
+    <div class="sv-slide" data-i="${k}">
+      <div class="sv-frame" id="svf-${k}">
+        <img class="sv-poster" src="https://i.ytimg.com/vi/${v.ytId}/hqdefault.jpg" alt="">
+        <button class="sv-play" type="button" data-play="${k}" aria-label="تشغيل">▶</button>
+        ${v.title ? `<div class="sv-title">${escapeHtml(v.title)}</div>` : ''}
+      </div>
+    </div>`).join('');
+  svOpen = true;
+  sv.classList.add('open');
+  document.body.classList.add('sv-lock');
+  history.pushState({ hfShorts: true }, '');
+  svScroll.scrollTop = i * svScroll.clientHeight;
+  svObserver = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      const k = Number(en.target.dataset.i);
+      if (en.isIntersecting) {
+        clearTimeout(svTimer);
+        svTimer = setTimeout(() => { if (svOpen && k !== svActive) svPlay(k); }, 220);
+      } else if (k === svActive) {
+        svStop();
+      }
+    });
+  }, { root: svScroll, threshold: 0.6 });
+  svScroll.querySelectorAll('.sv-slide').forEach(el => svObserver.observe(el));
+}
+
+function svClose(fromPop) {
+  if (!svOpen) return;
+  svOpen = false;
+  clearTimeout(svTimer);
+  if (svObserver) { svObserver.disconnect(); svObserver = null; }
+  svStop();
+  svScroll.innerHTML = '';
+  sv.classList.remove('open');
+  document.body.classList.remove('sv-lock');
+  if (!fromPop && history.state && history.state.hfShorts) history.back();
+}
+
+function svStep(dir) {
+  svScroll.scrollBy({ top: dir * svScroll.clientHeight, behavior: 'smooth' });
+}
+
+svScroll.addEventListener('click', e => {
+  const b = e.target.closest('[data-play]');
+  if (b) svPlay(Number(b.dataset.play));
+});
+document.getElementById('sv-close').onclick = () => svClose(false);
+document.getElementById('sv-up').onclick = () => svStep(-1);
+document.getElementById('sv-down').onclick = () => svStep(1);
+window.addEventListener('popstate', () => { if (svOpen) svClose(true); });
+document.addEventListener('keydown', e => {
+  if (!svOpen) return;
+  if (e.key === 'Escape') svClose(false);
+  else if (e.key === 'ArrowDown') { e.preventDefault(); svStep(1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); svStep(-1); }
+});
+// إيقاف التشغيل عند مغادرة التبويب أو إخفاء الصفحة أو الانتقال لصفحة أخرى
+document.addEventListener('visibilitychange', () => { if (document.hidden && svOpen) svStop(); });
+window.addEventListener('pagehide', () => { if (svOpen) svStop(); });
+
 // عرض آخر نسخة محفوظة فوراً ثم التحديث من الإنترنت
 function cacheGet(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
 function cacheSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 (function restoreCache() {
   const cs = cacheGet('hf-cache-sections');
   const cp = cacheGet('hf-cache-posts');
+  const cv = cacheGet('hf-cache-shorts');
   if (cs) sectionsCache = cs;
   if (cp) postsCache = cp;
+  if (cv) { shortsCache = cv; renderShorts(); }
   if (cs || cp) { renderTicker(); render(); }
 })();
 
@@ -524,6 +691,11 @@ onValue(ref(db, 'sections'), snap => {
   sectionsCache = snap.val() || {};
   cacheSet('hf-cache-sections', sectionsCache);
   render();
+});
+onValue(ref(db, 'shorts'), snap => {
+  shortsCache = snap.val() || {};
+  cacheSet('hf-cache-shorts', shortsCache);
+  renderShorts();
 });
 onValue(ref(db, 'posts'), snap => {
   postsCache = snap.val() || {};
